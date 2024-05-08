@@ -1,7 +1,4 @@
-#Create a Dockerfile and retrieve the Apache image
-FROM httpd:latest
-#Copy the contents of the html file into Apache
-COPY index.html /usr/local/apache2/htdocs/
+#!/usr/bin/env bash
 #Build the image
 docker build -t my-apache-image .
 #Run the container
