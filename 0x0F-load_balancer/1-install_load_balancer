@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Installs and sets up HAProxy
+
+# Update package lists and Install HAProxy
+sudo apt-get -y update
+sudo apt-get -y install haproxy
+
+# Start HAProxy service
+sudo service haproxy start # Start the HAProxy service to begin load balancing.
+
+# Configure HAProxy
+# The following configuration sets up a frontend that listens on port 80 and forwards requests
+# to a backend using round-robin balancing.
+echo 'frontend proxy
+        bind *:80
+        default_backend my_backend
+
+backend my_backend
+        balance roundrobin
+        server 504366-web-01 107.23.139.92
+        server 504366-web-02 54.160.110.19' | sudo tee -a /etc/haproxy/haproxy.cfg
+
+sudo service haproxy reload # Reload the HAProxy service to apply the new configuration.
